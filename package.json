@@ -15,6 +15,7 @@
     "author": "KineticTactic",
     "license": "MIT",
     "dependencies": {
+        "discord.js": "^12.5.1",
         "electron": "^11.2.1"
     }
 }

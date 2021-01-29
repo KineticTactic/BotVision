@@ -4,6 +4,8 @@
         <meta charset="UTF-8" />
         <title>Hello World!</title>
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+
+        <script src="script.js" defer></script>
     </head>
     <body style="background: white">
         <h1>Hello World!</h1>
@@ -21,6 +23,15 @@
                 document.write(process.versions.electron);
             </script>
             .
+
+            <button id="connect">Connect</button>
+            <br />
+            <input id="message" /> <button id="send">Send</button>
+            <br />
+
+            <select id="servers"></select
+            ><br />
+            <select id="channels"></select>
         </p>
     </body>
 </html>
