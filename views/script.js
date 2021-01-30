@@ -3,6 +3,7 @@ const { ipcRenderer } = require("electron");
 let servers, channels;
 
 const connectBtn = document.getElementById("connect");
+const sendBtn = document.getElementById("send");
 const messageInputElt = document.getElementById("message");
 const serverSelect = document.getElementById("servers");
 const channelsSelect = document.getElementById("channels");
@@ -11,14 +12,14 @@ connectBtn.addEventListener("click", () => {
     ipcRenderer.send("connect");
 });
 
-const sendBtn = document.getElementById("send");
-sendBtn.addEventListener("click", () => {
-    ipcRenderer.send("send", {
-        message: messageInputElt.value,
-        server: servers.find((e) => e.name === serverSelect.value).id,
-        channel: channels.find((e) => e.name === channelsSelect.value).id,
-    });
+messageInputElt.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        sendMessage();
+        messageInputElt.value = "";
+    }
 });
+
+sendBtn.addEventListener("click", sendMessage);
 
 ipcRenderer.on("servers", (event, args) => {
     servers = args;
@@ -41,6 +42,14 @@ ipcRenderer.on("channels", (event, args) => {
         channelsSelect.add(option);
     });
 });
+
+function sendMessage() {
+    ipcRenderer.send("send", {
+        message: messageInputElt.value,
+        server: servers.find((e) => e.name === serverSelect.value).id,
+        channel: channels.find((e) => e.name === channelsSelect.value).id,
+    });
+}
 
 //
 function removeOptionsFromSelect(selectElement) {
