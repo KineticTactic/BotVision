@@ -16,6 +16,7 @@ function createWindow() {
             contextIsolation: false,
         },
     });
+    win.maximize();
 
     win.loadFile("views/index.html");
 }
@@ -35,9 +36,9 @@ app.on("activate", () => {
 });
 
 // Events
-ipcMain.on("connect", () => {
+ipcMain.on("connect", (event, token) => {
     console.log("Connecting...");
-    client.login(config.botToken);
+    client.login(token ? token : config.botToken);
 });
 
 ipcMain.on("getChannels", (event, id) => {
@@ -49,7 +50,7 @@ ipcMain.on("getChannels", (event, id) => {
     event.reply("channels", channels);
 });
 
-ipcMain.on("send", (event, arg) => {
+ipcMain.on("sendMessage", (event, arg) => {
     console.log(`Sending Message: ${arg.message}`);
     client.guilds.cache.get(arg.server).channels.cache.get(arg.channel).send(arg.message);
 });
@@ -63,6 +64,10 @@ client.once("ready", () => {
         servers.push({ name: guild.name, id: guild.id });
     });
 
+    win.webContents.send("connected", {
+        name: client.user.username,
+        discriminator: client.user.discriminator,
+    });
     console.log("Sending Server list");
     win.webContents.send("servers", servers);
 });

@@ -5,19 +5,35 @@
         <title>Hello World!</title>
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
 
+        <link rel="stylesheet" href="style.css" />
+
         <script src="script.js" defer></script>
     </head>
-    <body style="background: white">
-        <h1>Hello World!</h1>
-        <p>
-            <button id="connect">Connect</button>
-            <br />
-            <input id="message" /> <button id="send">Send</button>
-            <br />
+    <body>
+        <div class="content">
+            <h1 id="title">BotVision</h1>
 
-            <select id="servers"></select>
-            <br />
-            <select id="channels"></select>
-        </p>
+            <div id="disconnected">
+                <h2>Enter your Token here:</h2>
+                <br />
+                <div><input id="tokenInput" /> <button id="connect">Connect</button></div>
+            </div>
+
+            <div id="connected">
+                <h2 class="success" id="connectedText"></h2>
+            </div>
+
+            <div class="inline">
+                <h3>Server:</h3>
+                <select id="servers"></select>
+            </div>
+
+            <div class="inline">
+                <h3>Channel:</h3>
+                <select id="channels"></select>
+            </div>
+
+            <div><input id="message" /> <button id="send">Send</button></div>
+        </div>
     </body>
 </html>
