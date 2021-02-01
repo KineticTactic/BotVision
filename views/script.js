@@ -28,9 +28,12 @@ ipcRenderer.on("servers", (event, args) => {
         option.text = e.name;
         serverSelect.add(option);
     });
+    updateChannels(serverSelect.value);
 });
 serverSelect.addEventListener("change", (e) => {
-    ipcRenderer.send("getChannels", servers.find((e) => e.name === serverSelect.value).id);
+    console.log(e);
+    console.log(serverSelect.value);
+    updateChannels(serverSelect.value);
 });
 
 ipcRenderer.on("channels", (event, args) => {
@@ -49,6 +52,10 @@ function sendMessage() {
         server: servers.find((e) => e.name === serverSelect.value).id,
         channel: channels.find((e) => e.name === channelsSelect.value).id,
     });
+}
+
+function updateChannels(serverName) {
+    ipcRenderer.send("getChannels", servers.find((e) => e.name === serverName).id);
 }
 
 //
