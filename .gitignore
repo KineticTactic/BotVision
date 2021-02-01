@@ -106,3 +106,5 @@ dist
 
 // my files
 config/config.json
+releases/
+config/

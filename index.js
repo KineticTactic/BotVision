@@ -1,7 +1,13 @@
 const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
 const Discord = require("discord.js");
+const fs = require("fs");
+const { isBuffer } = require("util");
+const { Z_FIXED } = require("zlib");
 
-const config = require("./config/config.json");
+let config;
+if (fs.existsSync("./config/config.json")) {
+    config = require("./config/config.json");
+}
 
 const client = new Discord.Client();
 
